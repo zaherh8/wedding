@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Wedding", suffix: " · Phoenix Framework" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script src="https://kit.fontawesome.com/0006e9f1c1.js" crossorigin="anonymous"></script>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-light-beige">
+    <div class="container:auto md:45 w-full" >
+      <img  class="w-full" src={Routes.static_path(@conn, "/images/with-caligraphy.png")} alt="HQ photo"/>
+    </div>
+    <div class="grid grid-cols-4 h-full">
+      <div class="couples-names">Rachelle</div><div class="wedding-date"> 07</div>
+      <div class="couples-last-names">Saliba</div>
+      <div class="and-between-couple-names">&</div><div class="wedding-date"> 07</div>
+      <div class="couples-names">Zaher</div>
+      <div class="couples-last-names"> Hassan </div><div class="wedding-date"> 24</div>
+
+    </div>
+  <div class="cinzel-decorative-regular container:auto max-w-2xl mt-10 mx-auto p-8 rounded-lg text-center">
+
+    Join us as we embark on this new adventure together, with love, laughter, and maybe a few happy tears. Our wedding will be a day to remember, filled with joy, dancing, and, of course, food. And let's be honest, we're mostly in it for the food.
+</div>
+
+    <%= @inner_content %>
+
+    <img  class="w-full" src={Routes.static_path(@conn, "/images/details.png")} alt="HQ photo"/>
+     <div class="container:auto cinzel-decorative-regular mx-auto px-8 rounded-lg">
+      <ul class="cinzel-decorative-regular text-center text-4xl">
+        <li> <i class="fa-solid fa-location-dot text-gold"></i> Location: Swanlake Venue</li> 
+        <li> <i class="fa-regular fa-calendar text-gold"></i>  Date: 7th of July at 7:00 PM</li> 
+        <li> <i class="fa-solid fa-square-parking text-gold"></i> Parking is available at the venue</li> 
+        <!-- <hr>   -->
+      </ul>
+        <div class="vl mt-12"></div>
+        <div class="mt-10 text-2xl cinzel-decorative-regular text-center"> 
+        <i class="fa-solid fa-gift text-gold text-center text-6xl"></i> <br>
+        <br>
+        Your presence is enough of a present for us!<br> 
+        But for those of you who are stubborn, we've put together a Wish Money account: 20395077 </div> 
+      
+    </div>
+    <br>
+    <div class="vl"></div>
+    <div class="container mx-auto mx-w-md google-map mt-8 text-center cinzel-decorative-regular">
+    <br>
+    <div class="text-center">Don't know where Swanlake is? We got you covered:</div>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3311.7524117343796!2d35.693654380743006!3d33.89602978619531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f3907ef788fc5%3A0x79d718edbf4e3021!2sSwanlake%20Venue!5e0!3m2!1sen!2slb!4v1716975708907!5m2!1sen!2slb" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="google-map"></iframe>
+    </div>
+  </body>
+</html>

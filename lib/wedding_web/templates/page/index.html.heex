@@ -1,0 +1,85 @@
+<body class="w-full items-center">
+  <div class="container:auto"> 
+    <img  class="w-full" src={Routes.static_path(@conn, "/images/rsvp.png")} alt="rsvp photo"/>
+    <div class="container:auto px-10 mb-10 text-center cinzel-decorative-regular">
+      We can't wait to share our special day with you! <br>
+      Please RSVP by June the 13th
+    </div>
+  </div>
+  <%= if get_flash(@conn, :info) do %>
+  <div class="container:auto max-w-md mx-auto pt-4 rounded-lg ">
+    <p class="alert alert-info  text-center text-base font-bold" role="alert"><%= get_flash(@conn, :info) %></p>
+  </div>
+  <% end %>
+  <%= if Map.get(@conn.assigns, :invitees) do %>
+    <div class="container:auto max-w-lg mx-auto p-8 rounded-lg mt-8">
+      <form action="/confirm_rsvp" method="POST">
+          <%= for {invitee, index} <- Enum.with_index(@invitees) do %>
+            <div class="p-4 border-gold rounded shadow w-full max-w-md mb-4 my-12">
+              <h1 class="text-center text-gold  text-2xl font-mono font-bold font-large text-black-800"><%= invitee.first_name |> String.capitalize() %> <%= invitee.last_name |> String.capitalize() %></h1>
+              <div class="p-4 rounded w-full max-w-xl mb-4">
+                <!-- hidden inputs -->
+                <input name={"last_name#{index}"}  value={String.capitalize(invitee.last_name)} class="mt-1 focus:ring-zinc-300 focus:border-slate-300 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md hidden">
+                <input name={"row#{index}"}  value={invitee.row} class="hidden">
+                <input name={"group#{index}"}  value={invitee.group} class="hidden">
+
+                <label for={"first_name#{index}"} class="block text-md text-gold font-medium text-gray-700">Name</label>
+                <input name={"first_name#{index}"} text={String.capitalize(invitee.first_name) <> " " <> String.capitalize(invitee.last_name)} value={String.capitalize(invitee.first_name)} readonly="readonly" class="mt-1 focus:ring-zinc-300 focus:border-slate-300 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+
+
+                <label for="attending" class="block text-md text-gold font-medium text-gray-700 mt-5">Are you attending?</label>
+                <select name={"response#{index}"} class="mt-1 block w-full pl-3 pr-10 py-2 text-xl border-gray-300 focus:outline-none focus:ring-zinc-300 focus:border-zinc-300 sm:text-sm rounded-md">
+                  <option value="true" class="font-large">Joyfully Accept</option>
+                  <option value="false">Regretfully Decline</option>
+                </select>
+              </div>
+            </div>
+          <% end %>
+          <button type="submit" class="w-full bg-zinc-300 text-gold font-semibold px-4 py-2 rounded-lg hover:bg-zinc-300 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-opacity-75 ring-white ">Submit</button>
+      </form>
+    </div>
+  <% else %> 
+    <div class="container:auto max-w-md mx-auto px-8 rounded-lg">
+        
+        <div id="rsvp-btn" class="text-center">
+          <button class="text-gold w-full">RSVP</button>
+        </div>
+
+        <!-- FORM -->
+        
+        <div id="component-b" class="p-4 border-gold rounded shadow w-full max-w-md mb-4 hidden">
+          <form action="/rsvp" method="POST">
+              
+              <label for="first_name" class="block text-md text-gold font-medium text-gray-700">First Name</label>
+              <input type="text" name="first_name" id="first_name" class="mt-1 focus:ring-zinc-300 focus:border-zinc-300 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              
+              <label for="last_name" class="block text-md  text-gold font-medium text-gray-700">Last Name</label>
+              <input type="text" name="last_name" id="last_name" class="mt-1 focus:ring-zinc-300 focus:border-slate-300 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              
+              <button type="submit" class="mt-10 text-bold">Continue</button>
+          </form>
+        </div>
+    </div>
+    <hr class="mb-2">  
+
+  <% end %> 
+  
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const rsvp = document.getElementById("rsvp-btn");
+      const btnShowB = document.getElementById("btn-show-b");
+      const componentB = document.getElementById("component-b");
+
+      rsvp.addEventListener("click", function() {
+        rsvp.classList.add("hidden");
+        componentB.classList.remove("hidden");
+      });
+
+      btnShowB.addEventListener("click", function() {
+        rsvp.classList.add("hidden");
+        componentB.classList.remove("hidden");
+      });
+    });
+  </script>
+</body>
+

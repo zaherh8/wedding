@@ -1,0 +1,209 @@
+/* This file is for your main application CSS */
+@import "./phoenix.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vl {
+  border-left: 3px solid #d4af37;
+  height: 6rem;  
+  margin-left: 50%;
+  margin-bottom: 3rem;
+  top: 0;
+}
+
+.cinzel-decorative-regular {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 400;
+  font-style: bold;
+}
+
+.cinzel-decorative-bold {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.cinzel-decorative-black {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+.container{
+  margin: 0 auto;
+  max-width: 80.0rem;
+  padding: 0 2.0rem;
+  position: relative;
+  width: 100%
+}
+.white_color {
+  color: #ffffff; /* White text color */
+}
+.couples-names{
+  @apply col-span-3;
+  @apply text-right;
+  @apply pr-6;
+  @apply text-8xl;
+  @apply font-bold;
+  border-right: 1px solid black;
+}
+.wedding-date{
+  @apply pl-6;
+  @apply text-8xl;
+  @apply font-bold;
+  @apply text-gold;
+}
+.and-between-couple-names{
+  @apply pt-8;
+  border-right: 1px solid black;
+  @apply col-span-3;
+  @apply text-right;
+  @apply text-5xl;
+  @apply pr-6;
+  @apply h-full;
+}
+.couples-last-names{
+  @apply col-span-3;
+  @apply text-right;
+  @apply text-6xl;
+  @apply pr-2;
+  @apply pt-0;
+  @apply h-full;
+  border-right: 1px solid black;
+}
+
+.google-map iframe {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+/* Alerts and form errors used by phx.new */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert-info {
+  @apply bg-gold;
+  background-color: #d4af37;
+  border-color: #d4af37;
+}
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert p {
+  margin-bottom: 0;
+}
+.alert:empty {
+  display: none;
+}
+.invalid-feedback {
+  color: #a94442;
+  display: block;
+  margin: -1rem 0 2rem;
+}
+
+/* LiveView specific classes for your customization */
+.phx-no-feedback.invalid-feedback,
+.phx-no-feedback .invalid-feedback {
+  display: none;
+}
+
+.phx-click-loading {
+  opacity: 0.5;
+  transition: opacity 1s ease-out;
+}
+
+.phx-loading{
+  cursor: wait;
+}
+
+button{
+  @apply font-bold;
+  @apply text-gold;
+  border: 0.1rem solid transparent;
+  background: #f0f0d5;
+  @apply w-full;
+}
+button:hover{
+  @apply text-gold;
+  cursor: pointer;
+  background: #e9e9e4;
+  border: 0.1rem solid transparent;
+
+}
+
+input:hover{
+  cursor: pointer;
+}
+input:focus{
+  cursor: pointer;
+  border: 0.1rem solid #d1d1d1;
+  border-color: #d1d1d1;
+}
+
+hr{
+  width: 40%;
+  @apply mx-auto;
+  @apply mt-20;
+  @apply mb-20;
+  border:0.1rem solid #d4af37;
+}
+
+.phx-modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.phx-modal-close:hover,
+.phx-modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fade-in-scale {
+  animation: 0.2s ease-in 0s normal forwards 1 fade-in-scale-keys;
+}
+
+.fade-out-scale {
+  animation: 0.2s ease-out 0s normal forwards 1 fade-out-scale-keys;
+}
+
+.fade-in {
+  animation: 0.2s ease-out 0s normal forwards 1 fade-in-keys;
+}
+.fade-out {
+  animation: 0.2s ease-out 0s normal forwards 1 fade-out-keys;
+}
+
+@keyframes fade-in-scale-keys{
+  0% { scale: 0.95; opacity: 0; }
+  100% { scale: 1.0; opacity: 1; }
+}
+
+@keyframes fade-out-scale-keys{
+  0% { scale: 1.0; opacity: 1; }
+  100% { scale: 0.95; opacity: 0; }
+}
+
+@keyframes fade-in-keys{
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fade-out-keys{
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
