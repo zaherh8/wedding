@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Wedding", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "Rachelle & Zaher" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script src="https://kit.fontawesome.com/0006e9f1c1.js" crossorigin="anonymous"></script>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
@@ -15,17 +15,18 @@
   </head>
   <body class="bg-light-beige">
    <nav class="absolute top-0 w-full bg-gray-800 text-white z-50">
-      <div style="margin-top: 2rem;" class="container mx-auto px-4 py-2 flex justify-between items-center hover:text-gold ">
+      <div style="margin-top: 2rem;" class="container mx-auto px-4 py-2 flex justify-between items-center">
         <div class="flex space-x-4 justify-center w-full">
-          <a href="#rsvp_section" class="py-2 px-4 hover:bg-gray-700">RSVP</a>
-          <a href="#details" class="py-2 px-4 hover:bg-gray-700">Details</a>
-          <a href="#registry" class="py-2 px-4 hover:bg-gray-700">Registry</a>
-          <a href="#location" class="py-2 px-4 hover:bg-gray-700">Directions</a>
+          <a href="#rsvp_section" class="py-2 px-4 hover:text-gold">RSVP</a>
+          <a href="#details" class="py-2 px-4 hover:text-gold">Details</a>
+          <a href="#registry" class="py-2 px-4 hover:text-gold">Registry</a>
+          <a href="#location" class="py-2 px-4 hover:text-gold">Directions</a>
         </div>
       </div>
   </nav>
 
-    <div class="container:auto md:45 w-full" >
+    <div class="relative flex items-center justify-center md:45 w-full" >
+        <div id="countdown" class="absolute  m-4 bg-transparent text-white text-4xl"></div>
       <img  class="w-full" src={Routes.static_path(@conn, "/images/zaher-rachelle-cropped.jpg")} alt="HQ photo"/>
     </div>
     <div class="container mx-10 mx-w-sm items-center" >
@@ -46,7 +47,7 @@
 
     <img id="details" class="w-full" src={Routes.static_path(@conn, "/images/details.png")} alt="HQ photo"/>
      <div class="container:auto cinzel-decorative-regular mx-auto px-8 rounded-lg">
-      <ul class="cinzel-decorative-regular text-center text-4xl">
+      <ul class="cinzel-decorative-regular text-center text-3xl">
         <li> <i class="fa-solid fa-location-dot text-gold"></i> Location: Swanlake Venue</li> 
         <li> <i class="fa-regular fa-calendar text-gold"></i>  Date: 7th of July at 7:00 PM</li> 
         <li> <i class="fa-solid fa-square-parking text-gold"></i> Parking is available at the venue</li> 
@@ -57,7 +58,7 @@
         <i class="fa-solid fa-gift text-gold text-center text-6xl"></i> <br>
         <br>
         Your presence is enough of a present for us!<br> 
-        But for those of you who are stubborn, we've put together<br> a Wish Money account: 20395077 </div> 
+        But for those of you who are stubborn, we've put together<br> a Whish Money account: 20395077 </div> 
       
     </div>
     <br>

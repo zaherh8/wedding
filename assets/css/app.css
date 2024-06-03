@@ -13,11 +13,10 @@
 }
 
 .cinzel-decorative-regular {
-  text-transform: uppercase;
   font-family: "Coromorant Garamon", serif;
   font-weight: 400;
   font-style: bold;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 
 }
 .container{
