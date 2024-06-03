@@ -7,7 +7,7 @@ defmodule Wedding.GoogleSpreadsheet do
   @scope "https://www.googleapis.com/auth/spreadsheets"
   def get_invitees do
     url =
-      "https://sheets.googleapis.com/v4/spreadsheets/#{@spreadsheet_id}/values/Sample!A1:D191?key=#{@api_key}"
+      "https://sheets.googleapis.com/v4/spreadsheets/#{@spreadsheet_id}/values/Sample!A1:D199?key=#{@api_key}"
 
     case HTTPoison.get(url) do
       {:ok, %{body: data, status_code: 200}} ->

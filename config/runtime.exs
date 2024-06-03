@@ -22,18 +22,18 @@ end
 if config_env() == :dev do
 
   google_service_account =
-    File.read!("config/service_account.json")
+    File.read!("config/service_account.json") |> Jason.decode!()
 
   config :goth, json: google_service_account
 
   config :wedding, google_service_account: google_service_account |> Jason.decode!()
 end
 if config_env() == :prod do
-  google_service_account = System.fetch_env!("GOOGLE_SERVICE_ACCOUNT")
+  google_service_account = System.fetch_env!("GOOGLE_SERVICE_ACCOUNT") |> Jason.decode!()
 
   config :goth, json: google_service_account
 
-  config :wedding, google_service_account: google_service_account |> Jason.decode!()
+  config :wedding, google_service_account: google_service_account
   # maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
