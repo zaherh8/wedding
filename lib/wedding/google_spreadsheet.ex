@@ -9,7 +9,7 @@ defmodule Wedding.GoogleSpreadsheet do
     url =
       "https://sheets.googleapis.com/v4/spreadsheets/#{@spreadsheet_id}/values/Sample!A1:D191?key=#{@api_key}"
 
-    case HTTPoison.get(url) |> IO.inspect() do
+    case HTTPoison.get(url) do
       {:ok, %{body: data, status_code: 200}} ->
         {:ok, data |> Jason.decode!() |> Map.get("values")}
 
@@ -18,11 +18,7 @@ defmodule Wedding.GoogleSpreadsheet do
     end
   end
 
-  def update_invitee_response(row, entries) do
-    update_invitee_and_party_response(row, entries)
-  end
-
-  def update_invitee_and_party_response(row_index, coming?) do
+  def update_invitee_response(row_index, coming?) do
     url = "https://sheets.googleapis.com/v4/spreadsheets/#{@spreadsheet_id}:batchUpdate"
 
     body =
@@ -58,20 +54,29 @@ defmodule Wedding.GoogleSpreadsheet do
       }
       |> Jason.encode!()
 
-    HTTPoison.post(url, body, [
-      {"Content-Type", "application/json"},
-      {"Authorization", "Bearer #{get_access_token()}"}
-    ])
+    case get_access_token() do
+      :error ->
+        :error
+
+      token ->
+        HTTPoison.post(url, body, [
+          {"Content-Type", "application/json"},
+          {"Authorization", "Bearer #{token}"}
+        ])
+    end
   end
 
   def get_access_token do
-    {:ok, %{token: token}} =
-      Goth.Token.fetch(
-        source:
-          {:service_account, File.read!("./config/service_account.json") |> Jason.decode!(),
-           scopes: [@scope]}
-      )
+    case Goth.Token.fetch(source: {:service_account, service_account(), scopes: [@scope]}) do
+      {:ok, %{token: token}} ->
+        token
 
-    token
+      _ ->
+        :error
+    end
+  end
+
+  def service_account do
+    Application.get_env(:wedding, :google_service_account)
   end
 end

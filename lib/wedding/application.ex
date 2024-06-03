@@ -7,7 +7,7 @@ defmodule Wedding.Application do
 
   @impl true
   def start(_type, _args) do
-    credentials = "config/service_account.json" |> File.read!() |> Jason.decode!()
+    credentials =  Wedding.GoogleSpreadsheet.service_account()
     source = {:service_account, credentials}
 
     children = [

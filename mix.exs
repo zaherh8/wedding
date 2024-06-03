@@ -34,14 +34,12 @@ defmodule Wedding.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.7"},
-      {:phoenix_ecto, "~> 4.4"},
-      {:ecto_sql, "~> 3.6"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.6"},
-      {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
+      {:esbuild, "~> 0.8.1", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
@@ -49,8 +47,7 @@ defmodule Wedding.MixProject do
       {:jason, "~> 1.4"},
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 1.8"},
-      # {:elixir_google_spreadsheets, "~> 0.2.2"}
-      # {:poison, "~> 0.3"},
+      {:poison, "~> 5.0.0"},
       {:jose, "~> 1.10.0"},
       {:goth, "~> 1.3"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
@@ -65,11 +62,8 @@ defmodule Wedding.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup"],
-      # "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      # "ecto.reset": ["ecto.drop", "ecto.setup"],
+      setup: ["deps.get"],
       test: ["test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"],
       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end

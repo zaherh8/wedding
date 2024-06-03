@@ -11,28 +11,40 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap&family=Varela+Round&display=swap&family=Oswald:wght@200..700&family=Passions+Conflict&family=Varela+Round&display=swap" rel="stylesheet">
   </head>
   <body class="bg-light-beige">
-    <div class="container:auto md:45 w-full" >
-      <img  class="w-full" src={Routes.static_path(@conn, "/images/with-caligraphy.png")} alt="HQ photo"/>
-    </div>
-    <div class="grid grid-cols-4 h-full">
-      <div class="couples-names">Rachelle</div><div class="wedding-date"> 07</div>
-      <div class="couples-last-names">Saliba</div>
-      <div class="and-between-couple-names">&</div><div class="wedding-date"> 07</div>
-      <div class="couples-names">Zaher</div>
-      <div class="couples-last-names"> Hassan </div><div class="wedding-date"> 24</div>
+   <nav class="absolute top-0 w-full bg-gray-800 text-white z-50">
+      <div style="margin-top: 2rem;" class="container mx-auto px-4 py-2 flex justify-between items-center hover:text-gold ">
+        <div class="flex space-x-4 justify-center w-full">
+          <a href="#rsvp_section" class="py-2 px-4 hover:bg-gray-700">RSVP</a>
+          <a href="#details" class="py-2 px-4 hover:bg-gray-700">Details</a>
+          <a href="#registry" class="py-2 px-4 hover:bg-gray-700">Registry</a>
+          <a href="#location" class="py-2 px-4 hover:bg-gray-700">Directions</a>
+        </div>
+      </div>
+  </nav>
 
+    <div class="container:auto md:45 w-full" >
+      <img  class="w-full" src={Routes.static_path(@conn, "/images/zaher-rachelle-cropped.jpg")} alt="HQ photo"/>
+    </div>
+    <div class="container mx-10 mx-w-sm items-center" >
+      <div class="grid grid-cols-4 h-full w-auto">
+        <div class="couples-names pt-6" >Rachelle</div><div class="wedding-date"> 07</div>
+        <div class="couples-last-names">Saliba</div>
+        <div class="and-between-couple-names">&</div><div class="wedding-date"> 07</div>
+        <div class="couples-names">Zaher</div>
+        <div class="couples-last-names pt-5"> Hassan </div><div class="wedding-date"> 24</div>
+
+      </div>
     </div>
   <div class="cinzel-decorative-regular container:auto max-w-2xl mt-10 mx-auto p-8 rounded-lg text-center">
-
     Join us as we embark on this new adventure together, with love, laughter, and maybe a few happy tears. Our wedding will be a day to remember, filled with joy, dancing, and, of course, food. And let's be honest, we're mostly in it for the food.
-</div>
+  </div>
 
     <%= @inner_content %>
 
-    <img  class="w-full" src={Routes.static_path(@conn, "/images/details.png")} alt="HQ photo"/>
+    <img id="details" class="w-full" src={Routes.static_path(@conn, "/images/details.png")} alt="HQ photo"/>
      <div class="container:auto cinzel-decorative-regular mx-auto px-8 rounded-lg">
       <ul class="cinzel-decorative-regular text-center text-4xl">
         <li> <i class="fa-solid fa-location-dot text-gold"></i> Location: Swanlake Venue</li> 
@@ -41,18 +53,18 @@
         <!-- <hr>   -->
       </ul>
         <div class="vl mt-12"></div>
-        <div class="mt-10 text-2xl cinzel-decorative-regular text-center"> 
+        <div id="registry" class="mt-10 text-2xl cinzel-decorative-regular text-center"> 
         <i class="fa-solid fa-gift text-gold text-center text-6xl"></i> <br>
         <br>
         Your presence is enough of a present for us!<br> 
-        But for those of you who are stubborn, we've put together a Wish Money account: 20395077 </div> 
+        But for those of you who are stubborn, we've put together<br> a Wish Money account: 20395077 </div> 
       
     </div>
     <br>
     <div class="vl"></div>
     <div class="container mx-auto mx-w-md google-map mt-8 text-center cinzel-decorative-regular">
     <br>
-    <div class="text-center">Don't know where Swanlake is? We got you covered:</div>
+    <div class="text-center" id="location">Don't know where Swanlake is? We got you covered:</div> <br>
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3311.7524117343796!2d35.693654380743006!3d33.89602978619531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f3907ef788fc5%3A0x79d718edbf4e3021!2sSwanlake%20Venue!5e0!3m2!1sen!2slb!4v1716975708907!5m2!1sen!2slb" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="google-map"></iframe>
     </div>
   </body>

@@ -6,13 +6,14 @@ defmodule WeddingWeb.PageController do
   end
 
   def rsvp(conn, %{"first_name" => first_name, "last_name" => last_name}) do
-    case Wedding.Invitees.get_invitee_and_party(first_name, last_name)
-         |> IO.inspect(label: "party?") do
+    [first_name , last_name] = Wedding.format_names([first_name, last_name])
+    case Wedding.Invitees.get_invitee_and_party(first_name, last_name) do
       {:ok, invitees} ->
-        render(conn, "index.html", invitees: invitees)
+        render(conn, "index.html", anchor: "anchor", invitees: invitees)
 
-      _ ->
-        render(conn, "index.html", invitees: [])
+      {:error, :not_found} ->
+        render(conn, "index.html", anchor: "firstform", form_error: "Sorry, we couldn't find you. Please try again. \n If you still have trouble, please contact Zaher.")
+
     end
   end
 
@@ -23,10 +24,18 @@ defmodule WeddingWeb.PageController do
       end)
       |> Enum.map(fn {_, data} -> struct(%Wedding.Invitees{}, data |> Map.new()) end)
 
-    Wedding.Invitees.update_invitees(invitees)
+    success? = Wedding.Invitees.update_invitees(invitees) == :ok
 
-    coming? = Enum.all?(invitees, & &1.response == "true")
-    message =  if coming?, do: "Thank you! See you at Swanlake", else: "Thank you for your response!"
-    render(conn |> put_flash(:info,  message), "index.html")
+    if success? do
+      coming? = Enum.all?(invitees, &(&1.response == "true"))
+
+      message =
+        if coming?, do: "Thank you! See you at Swanlake", else: "Thank you for your response!"
+
+      render(conn |> put_flash(:info, message), "index.html")
+    else
+      error = "Sorry, your reservation failed! Please try again."
+      render(conn |> put_flash(:error, error), "index.html")
+    end
   end
 end

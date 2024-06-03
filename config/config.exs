@@ -17,24 +17,12 @@ config :tailwind,
   ),
     cd: Path.expand("../assets", __DIR__)
   ]
-
 # Configures the endpoint
 config :wedding, WeddingWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: WeddingWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Wedding.PubSub,
   live_view: [signing_salt: "8dxPjuu7"]
-
-config :goth, json: File.read!("./config/service_account.json")
-
-config :elixir_google_spreadsheets, json: "./config/service_account.json" |> File.read!()
-
-config :elixir_google_spreadsheets, :client,
-  request_workers: 50,
-  max_demand: 100,
-  max_interval: :timer.minutes(1),
-  interval: 100,
-  result_timeout: :timer.minutes(10)
 
 # Configures the mailer
 #
@@ -49,11 +37,11 @@ config :wedding, Wedding.Mailer, adapter: Swoosh.Adapters.Local
 config :swoosh, :api_client, false
 
 # Configure esbuild (the version is required)
+
 config :esbuild,
-  version: "0.14.29",
+  version: "0.17.11",
   default: [
-    args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    args: ~w(js/app.js --bundle --target=es2016 --outdir=../priv/static/assets),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]

@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .vl {
-  border-left: 3px solid #d4af37;
+  border-left: 1px solid #d4af37;
   height: 6rem;  
   margin-left: 50%;
   margin-bottom: 3rem;
@@ -13,21 +13,12 @@
 }
 
 .cinzel-decorative-regular {
-  font-family: "Cinzel Decorative", serif;
+  text-transform: uppercase;
+  font-family: "Coromorant Garamon", serif;
   font-weight: 400;
   font-style: bold;
-}
+  letter-spacing: 3px;
 
-.cinzel-decorative-bold {
-  font-family: "Cinzel Decorative", serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.cinzel-decorative-black {
-  font-family: "Cinzel Decorative", serif;
-  font-weight: 900;
-  font-style: normal;
 }
 .container{
   margin: 0 auto;
@@ -40,17 +31,31 @@
   color: #ffffff; /* White text color */
 }
 .couples-names{
+  @apply place-self-stretch;
+  font-family: "Coromorant Garamon", serif;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-weight: 300;
+  font-style: normal;
   @apply col-span-3;
   @apply text-right;
-  @apply pr-6;
-  @apply text-8xl;
-  @apply font-bold;
+  @apply sm:text-7xl;
+  @apply text-5xl;
+
+  @apply place-content-stretch;
   border-right: 1px solid black;
 }
+#anchor {
+  scroll-padding-top: 100px;
+}
+#firstform {
+  scroll-margin-top: 150px;
+}
 .wedding-date{
+  font-family: "Varela Round", serif;
+  font-weight: 500;
   @apply pl-6;
   @apply text-8xl;
-  @apply font-bold;
   @apply text-gold;
 }
 .and-between-couple-names{
@@ -58,18 +63,18 @@
   border-right: 1px solid black;
   @apply col-span-3;
   @apply text-right;
-  @apply text-5xl;
+  @apply text-3xl;
   @apply pr-6;
-  @apply h-full;
 }
 .couples-last-names{
+  letter-spacing: 6px;
   @apply col-span-3;
   @apply text-right;
-  @apply text-6xl;
+  @apply text-4xl;
   @apply pr-2;
-  @apply pt-0;
-  @apply h-full;
   border-right: 1px solid black;
+  text-transform: uppercase;
+
 }
 
 .google-map iframe {
@@ -86,7 +91,7 @@
   border-radius: 4px;
 }
 .alert-info {
-  @apply bg-gold;
+  @apply bg-white;
   background-color: #d4af37;
   border-color: #d4af37;
 }
@@ -129,16 +134,16 @@
 
 button{
   @apply font-bold;
-  @apply text-gold;
+  @apply text-white;
   border: 0.1rem solid transparent;
-  background: #f0f0d5;
+  background: black;
   @apply w-full;
 }
 button:hover{
-  @apply text-gold;
   cursor: pointer;
-  background: #e9e9e4;
-  border: 0.1rem solid transparent;
+  color: black;
+  background: white;
+  border: 0.1rem solid black;
 
 }
 
@@ -156,7 +161,7 @@ hr{
   @apply mx-auto;
   @apply mt-20;
   @apply mb-20;
-  border:0.1rem solid #d4af37;
+  border: 0.05rem solid #d4af37;
 }
 
 .phx-modal-close {
