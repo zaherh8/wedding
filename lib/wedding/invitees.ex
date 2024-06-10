@@ -1,52 +1,134 @@
 defmodule Wedding.Invitees do
   @moduledoc """
-  This module represents invitees
+  The Invitees context.
   """
-  defstruct [:first_name, :last_name, :group, :response, :row]
+
+  import Ecto.Query, warn: false
+  alias Wedding.Repo
+
+  alias Wedding.Invitees.Invitee
+
+  @doc """
+  Returns the list of invitees.
+
+  ## Examples
+
+      iex> list_invitees()
+      [%Invitee{}, ...]
+
+  """
+  def list_invitees do
+    Repo.all(Invitee)
+  end
 
   def get_invitee_and_party(first_name, last_name) do
-    with {:ok, invitees_list} when is_list(invitees_list) <-
-           Wedding.GoogleSpreadsheet.get_invitees(),
-         invitees_list <- invitees_list |> Enum.with_index(&parse_invitee/2),
-         {invitee, rest_of_invitees} <-
-           Enum.split_with(
-             invitees_list,
-             &((&1.first_name == first_name) &&
-                (&1.last_name) == last_name)
-           ),
-         [invitee | _] <- invitee do
-      group = Enum.filter(rest_of_invitees, &(invitee.group && invitee.group == &1.group))
-      {:ok, [invitee] ++ group}
+    first_name = first_name |> String.trim() |> String.downcase()
+    last_name = last_name |> String.trim() |> String.downcase()
+
+    if invitee =
+         Repo.one(
+           from(i in Invitee, where: i.first_name == ^first_name and i.last_name == ^last_name)
+         ) do
+      group = invitee.group
+
+      group =
+        if group not in [nil, ""],
+          do: Repo.all(from(i in Invitee, where: i.group == ^group)),
+          else: [invitee]
+
+      {:ok, group}
     else
-      _ ->
-        {:error, :not_found}
+      {:error, :not_found}
     end
   end
 
-  defp parse_invitee(invitee, index) do
-   [first_name, last_name] = Wedding.format_names(Enum.take(invitee, 2))
-    %Wedding.Invitees{
-      first_name: first_name,
-      last_name: last_name,
-      group: invitee |> Enum.at(2),
-      response: invitee |> Enum.at(3),
-      row: index
-    }
+  def update_invitees(invite_params) do
+    Enum.each(invite_params, fn params ->
+      invitee = get_invitee!(params.id)
+      update_invitee(invitee, params)
+    end)
   end
 
-  def update_invitees(invitees) when is_list(invitees) do
-    if Enum.all?(
-         invitees,
-         &(Wedding.GoogleSpreadsheet.update_invitee_response(
-             &1.row |> String.to_integer(),
-             &1.response
-           )
-           |> elem(1)
-           |> Map.get(:status_code) == 200)
-       ) do
-      :ok
-    else
-      :error
-    end
+  def get_invitee!(id), do: Repo.get!(Invitee, id)
+
+  @doc """
+  Gets a single invitee.
+
+  Raises `Ecto.NoResultsError` if the Invitee does not exist.
+
+  ## Examples
+
+      iex> get_invitee!(123)
+      %Invitee{}
+
+      iex> get_invitee!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_invitee!(id), do: Repo.get!(Invitee, id)
+
+  @doc """
+  Creates a invitee.
+
+  ## Examples
+
+      iex> create_invitee(%{field: value})
+      {:ok, %Invitee{}}
+
+      iex> create_invitee(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_invitee(attrs \\ %{}) do
+    %Invitee{}
+    |> Invitee.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a invitee.
+
+  ## Examples
+
+      iex> update_invitee(invitee, %{field: new_value})
+      {:ok, %Invitee{}}
+
+      iex> update_invitee(invitee, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_invitee(%Invitee{} = invitee, attrs) do
+    invitee
+    |> Invitee.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a invitee.
+
+  ## Examples
+
+      iex> delete_invitee(invitee)
+      {:ok, %Invitee{}}
+
+      iex> delete_invitee(invitee)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_invitee(%Invitee{} = invitee) do
+    Repo.delete(invitee)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking invitee changes.
+
+  ## Examples
+
+      iex> change_invitee(invitee)
+      %Ecto.Changeset{data: %Invitee{}}
+
+  """
+  def change_invitee(%Invitee{} = invitee, attrs \\ %{}) do
+    Invitee.changeset(invitee, attrs)
   end
 end

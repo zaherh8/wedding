@@ -6,14 +6,18 @@ defmodule WeddingWeb.PageController do
   end
 
   def rsvp(conn, %{"first_name" => first_name, "last_name" => last_name}) do
-    [first_name , last_name] = Wedding.format_names([first_name, last_name])
+    [first_name, last_name] = Wedding.format_names([first_name, last_name])
+
     case Wedding.Invitees.get_invitee_and_party(first_name, last_name) do
       {:ok, invitees} ->
         render(conn, "index.html", anchor: "anchor", invitees: invitees)
 
       {:error, :not_found} ->
-        render(conn, "index.html", anchor: "firstform", form_error: "Sorry, we couldn't find you. Please try again. \n If you still have trouble, please contact Zaher.")
-
+        render(conn, "index.html",
+          anchor: "firstform",
+          form_error:
+            "Sorry, we couldn't find you. Please try again. \n If you still have trouble, please contact Zaher."
+        )
     end
   end
 
@@ -22,12 +26,12 @@ defmodule WeddingWeb.PageController do
       Enum.group_by(params, fn {key, _} -> String.at(key, -1) end, fn {key, value} ->
         {String.slice(key, 0..-2) |> String.to_atom(), value}
       end)
-      |> Enum.map(fn {_, data} -> struct(%Wedding.Invitees{}, data |> Map.new()) end)
+      |> Enum.map(fn {_, data} -> data |> Map.new() |> Map.take([:coming, :id]) end)
 
     success? = Wedding.Invitees.update_invitees(invitees) == :ok
 
     if success? do
-      coming? = Enum.all?(invitees, &(&1.response == "true"))
+      coming? = Enum.any?(invitees, & &1.coming)
 
       message =
         if coming?, do: "Thank you! See you at Swanlake", else: "Thank you for your response!"

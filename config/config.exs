@@ -37,6 +37,8 @@ config :wedding, Wedding.Mailer, adapter: Swoosh.Adapters.Local
 config :swoosh, :api_client, false
 
 # Configure esbuild (the version is required)
+config :wedding,
+  ecto_repos: [Wedding.Repo]
 
 config :esbuild,
   version: "0.17.11",

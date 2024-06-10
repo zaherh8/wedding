@@ -19,21 +19,17 @@ import Config
 if System.get_env("PHX_SERVER") do
   config :wedding, WeddingWeb.Endpoint, server: true
 end
-if config_env() == :dev do
 
-  google_service_account =
-    File.read!("config/service_account.json") |> Jason.decode!()
-
-  config :goth, json: google_service_account
-
-  config :wedding, google_service_account: google_service_account |> Jason.decode!()
-end
 if config_env() == :prod do
-  google_service_account = System.fetch_env!("GOOGLE_SERVICE_ACCOUNT") |> Jason.decode!()
+  maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
+  database_url = System.fetch_env!("DATABASE_URL")
 
-  config :goth, json: google_service_account
+  config :wedding, Wedding.Repo,
+    # ssl: true,
+    url: database_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    socket_options: maybe_ipv6
 
-  config :wedding, google_service_account: google_service_account
   # maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
@@ -49,7 +45,7 @@ if config_env() == :prod do
       """
 
   host = System.get_env("PHX_HOST") || "example.com"
-  port = String.to_integer(System.get_env("PORT") || "4000")
+  port = String.to_integer(System.get_env("PORT") || "8080")
 
   config :wedding, WeddingWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],

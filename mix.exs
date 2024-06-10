@@ -20,7 +20,10 @@ defmodule Wedding.MixProject do
   def application do
     [
       mod: {Wedding.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools],
+      start_phases: [
+        seed_db: []
+      ]
     ]
   end
 
@@ -34,7 +37,10 @@ defmodule Wedding.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.7"},
+      {:phoenix_ecto, "~> 4.6.0"},
       {:phoenix_html, "~> 3.0"},
+      {:ecto_sql, "~> 3.6"},
+      {:postgrex, ">= 0.0.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
       {:floki, ">= 0.30.0", only: :test},
@@ -49,7 +55,6 @@ defmodule Wedding.MixProject do
       {:httpoison, "~> 1.8"},
       {:poison, "~> 5.0.0"},
       {:jose, "~> 1.10.0"},
-      {:goth, "~> 1.3"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
     ]
   end
@@ -63,6 +68,8 @@ defmodule Wedding.MixProject do
   defp aliases do
     [
       setup: ["deps.get"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["test"],
       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]

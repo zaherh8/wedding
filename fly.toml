@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for zaher-rachelle on 2024-06-03T09:24:58+03:00
+# fly.toml app configuration file generated for zaher-rachelle on 2024-06-09T13:31:32+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'zaher-rachelle'
-primary_region = 'iad'
+primary_region = 'cdg'
 kill_signal = 'SIGTERM'
 
 [build]
