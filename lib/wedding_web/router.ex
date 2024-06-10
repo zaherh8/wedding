@@ -20,6 +20,7 @@ defmodule WeddingWeb.Router do
     get "/", PageController, :index
     post "/rsvp", PageController, :rsvp
     post "/confirm_rsvp", PageController, :confirm_rsvp
+    resources "/invitees", InviteeController
   end
 
   # Other scopes may use custom stacks.

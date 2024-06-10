@@ -1,0 +1,28 @@
+<h1>Show Invitee</h1>
+
+<ul>
+
+  <li>
+    <strong>Group:</strong>
+    <%= @invitee.group %>
+  </li>
+
+  <li>
+    <strong>Last name:</strong>
+    <%= @invitee.last_name %>
+  </li>
+
+  <li>
+    <strong>Coming:</strong>
+    <%= @invitee.coming %>
+  </li>
+
+  <li>
+    <strong>First name:</strong>
+    <%= @invitee.first_name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.invitee_path(@conn, :edit, @invitee) %></span> |
+<span><%= link "Back", to: Routes.invitee_path(@conn, :index) %></span>

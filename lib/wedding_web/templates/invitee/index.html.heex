@@ -1,0 +1,37 @@
+
+
+
+<h1 class="text-center text-6xl pt-12">Invitees List</h1>
+<hr>
+<h1 class="text-center text-5xl pb-12">Total Coming: <%= @total %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Group</th>
+      <th>Coming</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for invitee <- @invitees do %>
+    <tr>
+      <td><%= invitee.first_name %></td>
+      <td><%= invitee.last_name %></td>
+      <td><%= invitee.group %></td>
+      <td><%= if invitee.coming do%><i class="fa-solid fa-check text-green", style="color: green;"></i><% end %> <%= if invitee.coming == false do%> <i class="fa-solid fa-x text-red", style="color: red;"></i> <% end %> <%= if invitee.coming == nil do%><i class="fa-solid fa-minus color-black", style="color: black;"></i> <% end %> </td>
+
+      <td>
+        <span><%= link "Show", to: Routes.invitee_path(@conn, :show, invitee) %></span>
+        <span><%= link "Edit", to: Routes.invitee_path(@conn, :edit, invitee) %></span>
+        <span><%= link "Delete", to: Routes.invitee_path(@conn, :delete, invitee), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Invitee", to: Routes.invitee_path(@conn, :new) %></span>

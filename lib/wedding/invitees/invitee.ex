@@ -13,12 +13,6 @@ defmodule Wedding.Invitees.Invitee do
   def changeset(invitee, attrs) do
     invitee
     |> cast(attrs, [:first_name, :last_name, :group, :coming])
-    |> validate_required([:first_name, :last_name, :group, :coming])
-  end
-
-  @doc false
-  def to_changeset(invitee, attrs) do
-    invitee
-    |> cast(attrs, [:first_name, :last_name, :group, :coming])
+    |> validate_required([:first_name, :last_name])
   end
 end
