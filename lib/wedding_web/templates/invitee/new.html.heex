@@ -1,5 +1,7 @@
-<h1>New Invitee</h1>
+<div  class="mt-10 text-left ">
+<h1 class="text-center text-6xl pt-12">New Invitee</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.invitee_path(@conn, :create)) %>
 
 <span><%= link "Back", to: Routes.invitee_path(@conn, :index) %></span>
+</div>

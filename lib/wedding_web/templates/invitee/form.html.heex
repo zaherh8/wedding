@@ -5,23 +5,24 @@
     </div>
   <% end %>
 
-  <%= label f, :group %>
-  <%= text_input f, :group %>
-  <%= error_tag f, :group %>
-
-  <%= label f, :last_name %>
-  <%= text_input f, :last_name %>
-  <%= error_tag f, :last_name %>
-
-  <%= label f, :coming %>
-  <%= checkbox f, :coming %>
-  <%= error_tag f, :coming %>
-
-  <%= label f, :first_name %>
+  <%= label f, :first_name, class: "mt-8" %>
   <%= text_input f, :first_name %>
   <%= error_tag f, :first_name %>
 
-  <div>
+  <%= label f, :last_name, class: "mt-8" %>
+  <%= text_input f, :last_name %>
+  <%= error_tag f, :last_name %>
+
+
+  <%= label f, :group, class: "mt-8" %>
+  <%= text_input f, :group %>
+  <%= error_tag f, :group %>
+
+  <%= label f, :coming, class: "mt-8" %>
+  <%= checkbox f, :coming, value: nil %>
+  <%= error_tag f, :coming %>
+
+  <div class="mt-8">
     <%= submit "Save" %>
   </div>
 </.form>

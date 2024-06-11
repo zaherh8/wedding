@@ -1,10 +1,12 @@
-<h1>Show Invitee</h1>
+<div  class="mt-10 text-center ">
+
+<h1 class="text-center text-6xl pt-12">Show Invitee</h1>
 
 <ul>
 
   <li>
-    <strong>Group:</strong>
-    <%= @invitee.group %>
+    <strong>First name:</strong>
+    <%= @invitee.first_name %>
   </li>
 
   <li>
@@ -12,17 +14,18 @@
     <%= @invitee.last_name %>
   </li>
 
-  <li>
-    <strong>Coming:</strong>
-    <%= @invitee.coming %>
+  <li class="hidden">
+    <strong>Group:</strong>
+    <%= @invitee.group %>
   </li>
 
   <li>
-    <strong>First name:</strong>
-    <%= @invitee.first_name %>
+    <strong>Coming:</strong>
+    <%= @invitee.coming %>
   </li>
 
 </ul>
 
 <span><%= link "Edit", to: Routes.invitee_path(@conn, :edit, @invitee) %></span> |
 <span><%= link "Back", to: Routes.invitee_path(@conn, :index) %></span>
+</div>

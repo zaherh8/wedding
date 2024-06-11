@@ -8,6 +8,7 @@
 <table>
   <thead>
     <tr>
+      <th>#</th>
       <th>First name</th>
       <th>Last name</th>
       <th>Group</th>
@@ -17,8 +18,11 @@
     </tr>
   </thead>
   <tbody>
-<%= for invitee <- @invitees do %>
+<% invitees = Enum.with_index(@invitees)%>
+
+<%= for {invitee, number} <- invitees do %>
     <tr>
+      <td><%= number %></td>
       <td><%= invitee.first_name %></td>
       <td><%= invitee.last_name %></td>
       <td><%= invitee.group %></td>
